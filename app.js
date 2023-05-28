@@ -1,60 +1,40 @@
 const display = document.querySelector(".display");
-const controls_button = document.querySelectorAll("button");
-const allSymbols = ["+", "-", "/", "*", "%", "=", "C"];
+const control_button = document.querySelectorAll("button")
+const AllSymbols = ["+", "-", "X", "AC", "%", "÷", "="]
 
-let firstValue = ""
-let secondValue = ""
-let symbols = ""
-let result = ""
+// declearing a variable for the values
+let firstValue = "",
+secondValue = "",
+symbol = "",
+result = "";
+
 const calculate = ()=>{
     firstValue = parseFloat(firstValue);
-    secondValue = parseFloat(secondValue)
+    secondValue = parseFloat(secondValue);
 
-    if(symbols === "+"){
-        result = firstValue + secondValue
-    }
-    if(symbols === "-"){
-        result = firstValue - secondValue
-    }
-    if(symbols === "*"){
-        result = firstValue * secondValue
-    }
-    if(symbols === "/"){
-        result = firstValue / secondValue
-    }
-    if(symbols === "%"){
-        result = firstValue % secondValue
-    }
-    display.innerText = result
+    if(symbol === "+") result = firstValue + secondValue;
+    if(symbol === "-") result = firstValue - secondValue;
+    if(symbol === "X") result = firstValue * secondValue;
+    if(symbol === "÷") result = firstValue / secondValue;
+    display.innerText = result;
     firstValue = result
     secondValue = ""
 }
-for(let buttons of controls_button) {
+
+// ilterating throuht the buttons
+for(let buttons of control_button){
     buttons.addEventListener("click", ()=>{
         const {innerText: btnValue} = buttons
-        const btnValueIsSymbol = allSymbols.includes(btnValue);
+        const isSymbols = AllSymbols.includes(btnValue);
 
-        if(firstValue && btnValueIsSymbol){
-            if(secondValue) {
-                calculate();
-            }
-            symbols = btnValue; 
+        if(firstValue && isSymbols){
+            secondValue && calculate();
+            symbol = btnValue
         }
-        else if(!symbols){
-            firstValue += btnValue
-        }
-        else if(symbols){
-            secondValue += btnValue
-        }
-         if(btnValue !== "="){
-            display.innerText += btnValue
-        }
-         if(btnValue === "C"){
-            firstValue = ""
-            secondValue = ""
-            symbols = ""
-            return display.innerText = ""
-        }
+        else if(!symbol) firstValue += btnValue;
+        else if(symbol) secondValue += btnValue;
+
+        if(btnValue !== "=") display.innerText += btnValue;
+        
     });
-};
-
+}
