@@ -35,6 +35,12 @@ for(let buttons of control_button){
         else if(symbol) secondValue += btnValue;
 
         if(btnValue !== "=") display.innerText += btnValue;
+        if(btnValue === "AC"){
+            firstValue = "";
+            secondValue = "";
+            symbol = "";
+            return display.innerText = ""
+        }
         
     });
 }
